@@ -1,0 +1,67 @@
+
+<!-- 右 -->
+<div class="content">
+    <div class="header">
+        <h1 class="page-title">角色新增</h1>
+    </div>
+
+    <div class="well">
+        <!-- add form -->
+        <form action="{:url('admin/role/save')}" method="post" id="tab">
+            <label>角色名称：</label>
+            <input type="text" name="role_name" value="" class="input-xlarge">
+            <table class="table table-bordered table-hover table-condensed">
+                <thead>
+                    <tr>
+                        <th>权限分类</th>
+                        <th>权限</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {foreach $auth_one as $one}
+                        <tr class="success">
+                            <td><input type="checkbox" class='one' name="role_auth_ids[]"  value="{$one.id}">{$one.auth_name}</td>
+                            <td>
+                                {foreach $auth_two as $two}
+                                    {if $two.pid==$one.id}
+                                <input type="checkbox" name="role_auth_ids[]" class='two' value="{$two.id}">{$two.auth_name}
+                                    {/if}
+                                {/foreach}
+                            </td>
+                        </tr>
+                    {/foreach}
+                </tbody>
+            </table>
+            <button class="btn btn-primary" type="submit">保存</button>
+        </form>
+    </div>
+    <!-- footer -->
+    <footer>
+        <hr>
+        <p>© 2017 <a href="javascript:void(0);" target="_blank">ADMIN</a></p>
+    </footer>
+</div>
+<script>
+        $(function(){
+            $('.one').change(function(){
+                var status=$(this).prop('checked');
+                if(!status){
+                    $(this).closest('tr').find('.two').prop('checked',status);
+                }else{
+                    var num=$(this).closest('tr').find('.two:checked').length;
+                    if(num==0){
+                        $(this).prop('checked',false);
+                        alert('请先勾选权限');                        
+                    }
+                }
+            });
+            $('.two').change(function(){
+                var num=$(this).closest('td').find('.two:checked').length;
+                if(num>0){
+                    $(this).closest('tr').find('.one').prop('checked',true);
+                }else{
+                    $(this).closest('tr').find('.one').prop('checked',false);
+                }
+            });
+        });
+    </script>

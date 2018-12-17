@@ -1,0 +1,2 @@
+<?php die('forbidden'); ?>
+{"appid":"101522450","appkey":"2e1c199cc25898879d04a15413d50abc","callback":"http://www.tpshop.com/index.php/home/login/qqcallback","scope":"get_user_info","errorReport":true,"storageType":"file","host":"localhost","user":"root","password":"root","database":"test"}
